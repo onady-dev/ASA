@@ -4,8 +4,8 @@
     "morgan": "^1.10.0"
   },
   "scripts": {
-    "test": "mocha index.spec.js",
-    "start": "node index.js"
+    "test": "NODE_ENV=test mocha api/sample/user.spec.js",
+    "start": "node bin/www.js"
   },
   "devDependencies": {
     "mocha": "^10.1.0",
