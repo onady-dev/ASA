@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var morgan = require('morgan');
-var user = require('./api/sample')
+var sample = require('./api/sample')
 
 if(process.env.NODE_ENV !== 'test'){
   app.use(morgan('dev'));
@@ -13,6 +13,6 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.use('/users', user);
+app.use('/sample', sample);
 
 module.exports = app;
