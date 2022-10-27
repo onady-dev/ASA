@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 
 const getHtml = async () => {
   try {
-    return await axios.get("https://kr.investing.com/equities/korean-air-lines-co");
+    return await axios.get("https://www.yna.co.kr/sports/all");
   } catch (error) {
     console.error(error);
   }
@@ -21,17 +21,21 @@ const getHtml = async () => {
 
 getHtml()
   .then((html) => {
-    // axios 응답 스키마 `data`는 서버가 제공한 응답(데이터)을 받는다.
-    // load()는 인자로 html 문자열을 받아 cheerio 객체 반환
+    let ulList = [];
     const $ = cheerio.load(html.data);
-    const data = {
-      mainContents: $(
-        "#__next > div > div > div > div.grid.gap-4.tablet:gap-6.grid-cols-4.tablet:grid-cols-8.desktop:grid-cols-12.grid-container--fixed-desktop.general-layout_main__3tg3t > main > div > div.instrument-header_instrument-header__1SRl8.mb-5.bg-background-surface.tablet:grid.tablet:grid-cols-2 > div:nth-child(2) > div.instrument-price_instrument-price__3uw25.flex.items-end.flex-wrap.font-bold > span"
-      )
-        .html()
-        // 불필요한 \n과 \t 제거
-        .replace(/[\n\t]/g, ""),
-    };
+    const $bodyList = $("div.headline-list ul").children("li.section02");
+
+    $bodyList.each(function (i, elem) {
+      ulList[i] = {
+        title: $(this).find("strong.news-tl a").text(),
+        url: $(this).find("strong.news-tl a").attr("href"),
+        image_url: $(this).find("p.poto a img").attr("src"),
+        image_alt: $(this).find("p.poto a img").attr("alt"),
+        summary: $(this).find("p.lead").text().slice(0, -11),
+        date: $(this).find("span.p-time").text(),
+      };
+    });
+    const data = ulList.filter((n) => n.title);
     return data;
   })
   .then((res) => console.log(res));
