@@ -14,7 +14,6 @@ export const crawl = async (url: string, selector: string) => {
   //     console.log($(el).text());
   //   });
   const result = parseInt(removeComma(elements));
-  console.log(result);
   return result;
 };
 
