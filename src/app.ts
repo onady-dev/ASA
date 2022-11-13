@@ -5,17 +5,12 @@ import { sendMail } from "./mailer";
 
 const app = express();
 
-const stock = new Stock("카카오", 58600, "high");
+const stock = new Stock("카카오", 58600);
 
 const URL = "https://kr.investing.com/equities/kakao-corp";
 const SELECTOR = "#__next > div > div > div > div > main > div > div > div:nth-child(2) > div > span";
-let test = setInterval(crawl, 2000, URL, SELECTOR);
-console.log(test);
-// sendMail({
-//   to: "onady.dev@gmail.com",
-//   subject: "test mail",
-//   text: "test mail text",
-// });
+
+setInterval(crawl, 2000, URL, SELECTOR);
 
 app.get("/", async (req: Request, res: Response) => {
   res.send("hello");
