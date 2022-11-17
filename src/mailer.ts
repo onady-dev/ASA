@@ -9,7 +9,7 @@ import path from "path";
   }
 })();
 
-export const sendMail = (param: nodemailer.SendMailOptions): boolean => {
+export const sendMail = () => {
   const transporter = nodemailer.createTransport({
     service: "naver",
     host: "smtp.naver.com",
@@ -22,10 +22,10 @@ export const sendMail = (param: nodemailer.SendMailOptions): boolean => {
 
   const mailOptions: nodemailer.SendMailOptions = {
     from: process.env.NODEMAILER_USER,
-    to: param.to,
-    subject: param.subject,
-    text: param.text,
-    html: param.html,
+    to: "hny0611@gmail.com",
+    subject: "test",
+    text: "test",
+    html: "test",
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
