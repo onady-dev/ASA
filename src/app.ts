@@ -9,8 +9,8 @@ const URL = "https://kr.investing.com/equities/kakao-corp";
 const SELECTOR = "#__next > div > div > div > div > main > div > div > div:nth-child(2) > div > span";
 
 const kakao = new Stock("카카오", 80000);
-// const daehan = new Stock("대한항공", 34000);
 setInterval(main, 6000, kakao);
+// const daehan = new Stock("대한항공", 34000);
 // setInterval(main, 6000, daehan);
 
 async function main(stock: Stock) {
